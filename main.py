@@ -1,26 +1,27 @@
-def my_bit_length(a):
-    a =abs(a)
-    counter = 0
-    while (a != 0):
-        counter += 1
-        a >>= 1
-    return counter
-def count_set_bits(a, num_bit_len):
-    cnt = 0
-    if (a < 0):
-        a = abs(a)
-        a = ~a + 1
-        cnt += 1
-    while(num_bit_len > 0):
-        if (a & 1):
-            cnt += 1
-        a >>= 1
-        num_bit_len -=1
-    return cnt
-x = int(input())
-print(count_set_bits(x, my_bit_length(x)))
-# print(my_bit_length(x))
-# print(x.bit_length())
-assert count_set_bits(-123, my_bit_length(-123)) == 3, "Assert error"
-assert count_set_bits(-512, my_bit_length(-512)) == 2, "Assert error"
-assert count_set_bits(257, my_bit_length(257)) == 2, "Assert error"
+def pair_lists(list1, list2):
+    min_length = min(len(list1), len(list2))
+    result = []
+    for i in range(min_length):
+        result.append((list1[i], list2[i]))
+
+    return result
+
+list1 = input().split()
+list2 = input().split()
+print(pair_lists(list1, list2))
+list1 = [1, 2, 3]
+list2 = ["a", "b"]
+list3 = [(1, 'a'), (2, 'b')]
+assert pair_lists(list1, list2) == list3, "assert_error"
+list1 = ["a 3","b 2" ,"c 1" ]
+list2 = ["a", "b"]
+list3 = [("a 3", "a"), ("b 2", "b")]
+assert pair_lists(list1, list2) == list3, "assert_error"
+list1 = [" ", "-", ")"]
+list2 = ["a", "b", "c"]
+list3 = [(" ", "a"), ("-", "b"), (")", "c")]
+assert pair_lists(list1, list2) == list3, "assert_error"
+list1 = [-1, 0 ,-9, -1]
+list2 = ["/", "-", "+"]
+list3 = [(-1, '/'), (0, '-'), (-9, '+')]
+assert pair_lists(list1, list2) == list3, "assert_error"
