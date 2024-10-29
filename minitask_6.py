@@ -1,8 +1,8 @@
-def flatten_with_depth(list_1, depth=None):
+def flatten_with_depth(list_1, depth= float('inf')):
     new_list = []
     for i in list_1:
-        if isinstance(i, list) and (depth is None or depth > 0):
-            new_list.extend(flatten_with_depth(i, depth - 1 if depth is not None else None))
+        if isinstance(i, list) and depth > 0:
+              new_list.extend(flatten_with_depth(i, depth - 1))
         else:
             new_list.append(i)
     return new_list
