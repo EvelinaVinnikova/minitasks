@@ -6,8 +6,9 @@ def deprecated(since = None, will_be_removed = None):
 
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            print(f"Warning: function {func.__name__} is deprecated. It will be removed in future versions.")
-            return func(*args, **kwargs)
+            warn_mssg = f"Warning: function {func.__name__} is deprecated. It will be removed in future versions."
+            print(warn_mssg)
+            return func(*args, **kwargs), warn_mssg
 
         return wrapper
 
@@ -31,6 +32,10 @@ def deprecated(since = None, will_be_removed = None):
 def sum(x, y):
     return x+y
 
+@deprecated
+def subst(x, y):
+    return x-y
+print(subst(7,1))
 @deprecated(since= "4.2.0", will_be_removed= "5.0.1")
 def foo():
     print("Hello from foo")
@@ -45,6 +50,9 @@ def baz():
 
 result, warning = sum(4, 6)
 assert warning == "Warning: function sum is deprecated since version 4.2.0. It will be removed in version 5.0.1."
+print(result)
+result, warning = subst(7, 1)
+assert warning == "Warning: function subst is deprecated. It will be removed in future versions."
 print(result)
 result, warning = foo()
 assert warning == "Warning: function foo is deprecated since version 4.2.0. It will be removed in version 5.0.1."
