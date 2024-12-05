@@ -1,11 +1,13 @@
 def create_reverse_dict(d):
     reverse_dict = {}
+    
     for key, value in d.items():
         if value in reverse_dict:
             exist_value = reverse_dict[value] if isinstance(reverse_dict[value], tuple) else (reverse_dict[value],)
             reverse_dict[value] = exist_value + (key,)
         else:
             reverse_dict[value] = (key,) if isinstance(key, tuple) else key
+            
     return reverse_dict
 
 d = {("Petrov",): 123, "Kuznezov": 123}
