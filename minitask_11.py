@@ -1,27 +1,23 @@
 def cycle(iterable):
-    saved = []
-    for element in iterable:
-        saved.append(element)
-    yield saved
-    while saved:
-        for element in saved:
-            yield element
+    while True:
+        yield from iterable
+
 
 def chain(*iterables):
-    result = []
-    for obj in iterables:
-        for element in obj:
-            result.append(element)
-    return result
+    for iterable in iterables:
+        yield from iterable
 
-for i, item in enumerate(cycle([1,2,3])):
-    print(item)
-    if i > 10:
-        break
+
+def take(iterable, n):
+    for i, element in enumerate(iterable):
+        if i >= n:
+            break
+        yield element
+
+
+# Example usage:
+print(list(take(cycle([1, 2, 3]), 10)))
 
 my_list = ['H', 1, 2, "Hannah", "Soda", "Time"]
-a = chain(my_list, [1,2,3])
-print(a)
-for i in a:
-    print(i)
-
+chained = chain(my_list, [1, 2, 3])
+print(list(chained))
