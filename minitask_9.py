@@ -4,18 +4,20 @@ class LRUCache:
         self.cache = {}
         self.order = []  # array of keys
 
+    def __update_key(self, key):
+        self.order.remove(key)
+        self.order.append(key)
+
     def get(self, key):
         if key in self.cache:
-            self.order.remove(key)
-            self.order.append(key)
+            self.__update_key(key)
             return self.cache[key]
         return None
 
     def put(self, key, value):
         if key in self.cache:
             self.cache[key] = value
-            self.order.remove(key)
-            self.order.append(key)
+            self.__update_key(key)
         else:
             if len(self.cache) >= self.capacity:
                 oldest_key = self.order.pop(0)
